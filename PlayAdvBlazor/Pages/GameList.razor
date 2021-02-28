@@ -1,0 +1,34 @@
+﻿@page "/gamelist"
+@using PlayAdvBlazor.Clients.AdventureServer;
+@inject IAdventureServerClient _client
+
+
+<h3>Adventure Game List</h3>
+@if (Games.Count > 0)
+{
+
+    @foreach (Game game in Games)
+    {
+        <p>@game.Name - @game.Desc - @game.Id</p>
+
+    }
+
+}
+else
+{
+    <span>
+        Loading game list...
+    </span>
+}
+
+
+@code {
+
+    public List<Game> Games = new List<Game>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Games = await _client.GetGamesAsync();
+    }
+
+}
