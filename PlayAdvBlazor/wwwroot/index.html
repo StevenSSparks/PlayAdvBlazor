@@ -1,6 +1,15 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
 
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementsByName('buffer')[0].scrollTop = document.getElementsByName('buffer')[0].scrollHeight;
+        var textbox = document.getElementById("command");
+        textbox.focus();
+        textbox.scrollIntoView();
+    };
+</script>
+
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />

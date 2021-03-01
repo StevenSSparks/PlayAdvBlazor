@@ -1,7 +1,40 @@
-﻿@page "/"
+﻿@using System.Reflection;
+@page "/"
 
-<h1>Hello, world!</h1>
+<h3><strong>Blazor: Adventure Server Client</strong></h3>
+<h5>Version: @version</h5>
+<p>
+    This application is a simple client to consumme the Adventude Server API endpoints <br />
+    to play the available games. The client was written as part of a suite of applicaitons <br />
+    to support a learning experience in .NET development.
+</p>
+<ul>
+    <li>Using Visual Studio 2019</li>
+    <li>Source is provided on <a href="https://github.com/StevenSSparks/">GitHub</a></li>
+    <li>Using .Net Standard 2.1</li>
+</ul>
+<hr />
+<img src="/img/adventuresserver3.jpg" /><br />
+<p>
+    Adventure Server is a learning project that I use to establish patterns and concepts of<br />
+    various development and hosting ideas. This project combines a love for text adventures<br />
+    and learning!<br />
+    <br />
+    You can find the Adventure Server hosted <a href="https://advsrv.azurewebsites.net/">here!</a>
+</p>
+<h6><strong>Goals of my projects</strong></h6>
+<ul>
+    <li>Improved development skills.</li>
+    <li>Improved development skills.</li>
+    <li>Test out porting from various versions of .Net Core to .Net 5.</li>
+    <li>Create build project on services like Bitbucket.org, GitHub, and Azure DevOps.</li>
+    <li>Test out deployment pipelines using Docker containers to Azure Registries and DockerHub.</li>
+    <li>Have a self-contained application that that can scale inside Kubernetes.</li>
+    <li>It keeps me interested in the development and is just fun!</li>
+</ul>
 
-Welcome to your new app.
+@code {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+} 

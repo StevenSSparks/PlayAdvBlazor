@@ -1,0 +1,161 @@
+﻿@page "/PlayAdventure"
+@using PlayAdvBlazor.Clients.AdventureServer;
+@inject IAdventureServerClient _client
+
+@if (MoveResult == null)
+{
+    <p><em>Initializing New Game Loading...</em></p>
+}
+else
+{
+<table class="fixed">
+    <tr>
+        <td style="text-align:center"><h2>@MoveResult.RoomName</h2></td">
+    </tr>
+<tr>
+<td>
+<textarea name="buffer" background="black" color="white" outline="none" readonly cols="80" rows="20">
+@MoveResult.RoomMessage &#10; &#13;
+@MoveResult.ItemsMessage &#10; &#13; 
+</textarea>
+</td>
+</tr>
+    <tr>
+        <td>
+            <p>Command &gt <input name="command" autocomplete="on" type="text" @onkeyup="@EnterMove" @bind="@GameMove" /></p>
+        </td>
+    </tr>
+</table>
+
+}
+
+@code {
+
+    private string LastGameMove { get; set; }
+    private string PreviousGameMove { get; set; }
+
+    private string GameMove { get; set; } // use property to support the bind-value getting and setting the value
+
+    private int GameSelecton = 1;
+
+    public GameMoveResult MoveResult = new GameMoveResult();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // If a Game has not been started then this will initialize the game and save the move
+
+        MoveResult = _client.RestoreLastMove();
+        GameMove = "";
+        LastGameMove = "";
+        PreviousGameMove = "";
+
+        if (MoveResult.InstanceID == null)
+        {
+            MoveResult = await _client.StartAdventureAsync(GameSelecton);
+            _client.SaveLastMove(MoveResult);
+        }
+
+    }
+
+
+    private async Task EnterMove(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            MoveResult = await _client.PlayGameAsync(MoveResult.InstanceID, GameMove);
+            _client.SaveLastMove(MoveResult);
+            PreviousGameMove = LastGameMove;
+            LastGameMove = GameMove;
+            GameMove = "";
+
+
+        }
+
+        // ToDo - Add scroll buffer - press up or down to scroll trough a list of cached commands
+
+        if (e.Code == "ArrowUp" || e.Code == "NumpadArrowUp")
+        {
+            GameMove = LastGameMove;
+        }
+
+        if (e.Code == "ArrowDown" || e.Code == "NumpadArrowDown")
+        {
+            GameMove = PreviousGameMove;
+        }
+
+    }
+}
+
+<style type="text/css">
+
+    table.fixed {
+        table-layout: fixed;
+        width: 90px;
+    }
+        /*Setting the table width is important!*/
+        table.fixed td {
+            overflow: hidden;
+        }
+            /*Hide text outside the cell.*/
+            table.fixed td:nth-of-type(1) {
+                width: 640px;
+                border: none;
+            }
+            /*Setting the width of column 1.*/
+            table.fixed td:nth-of-type(2) {
+                width: 640px;
+            
+            }
+            /*Setting the width of column 2.*/
+            table.fixed td:nth-of-type(3) {
+                width: 640px;
+      
+            }
+    /*Setting the width of column 3.*/
+
+    h2 {
+        font-size: 3em;
+        font-weight: bold;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        background: black;
+        color: Yellow;
+        outline: none;
+        border: dotted
+    }
+
+    textarea {
+        background: black;
+        color: green;
+        font: courier;
+        overflow: hidden;
+        width: 640px;
+        height: 480px;
+        font-size: 1em;
+        font-weight: bold;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        border: none
+    }
+
+    input {
+        width: 50%;
+        border: none;
+        background: black;
+        color: green;
+        outline: none;
+        font-size: 1em;
+        font-weight: bold;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+
+    p {
+        font-size: 1em;
+        font-weight: bold;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        background: black;
+        color: green;
+        outline: none;
+        border: none
+    }
+</style>
+
+
