@@ -6,6 +6,7 @@
     <Company>Steve Sparks</Company>
     <Product>Adventure Server</Product>
     <Authors>Steve Sparks</Authors>
+    <Description>Client to play the Adventure Server </Description>
   </PropertyGroup>
 
   <ItemGroup>

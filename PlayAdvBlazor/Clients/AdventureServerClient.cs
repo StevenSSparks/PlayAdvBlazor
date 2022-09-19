@@ -43,7 +43,7 @@ public class GameMoveResult  // You need to tell Json Deserializr not to be case
     {
         private readonly HttpClient _client;
 
-        public string ApiHost { get; set; } = "advsrv.azurewebsites.net";
+        public string ApiHost { get; set; } = "adventureserver.whitepebble-8c9b7158.centralus.azurecontainerapps.io";
         public const string _gameListPath = "api/Adventure/list";
         public const string _newGamePath = "api/Adventure/"; // api/Adventure/{id}
         public const string _playGamePath = "api/Adventure";  //  Example "http://advsrv.azurewebsites.net/api/Adventure?InstanceID=1111111&Move=Go%20North"
