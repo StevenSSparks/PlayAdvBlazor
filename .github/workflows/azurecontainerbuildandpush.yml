@@ -36,5 +36,3 @@ jobs:
        run: |
         docker build "$GITHUB_WORKSPACE/PlayAdvBlazor" -f  "PlayAdvBlazor/Dockerfile" -t ssscon.azurecr.io/playadvblazor:prod --label dockerfile-path=PlayAdvBlazor/Dockerfile
         docker push ssscon.azurecr.io/playadvblazor:prod
-
-      
