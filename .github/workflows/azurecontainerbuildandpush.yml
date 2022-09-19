@@ -34,7 +34,7 @@ jobs:
      - name: Build and push image to ACR
        id: build-image
        run: |
-        docker build "$GITHUB_WORKSPACE/AdventureServerClient" -f  "AdventureServerClient/Dockerfile" -t ssscon.azurecr.io/adventureserverclient:prod --label dockerfile-path=AdventureServerClient/Dockerfile
+        docker build "$GITHUB_WORKSPACE/PlayAdvBlazor" -f  "PlayAdvBlazor/Dockerfile" -t ssscon.azurecr.io/adventureserverclient:prod --label dockerfile-path=PlavAdvBlazor/Dockerfile
         docker push ssscon.azurecr.io/adventureserverclient:prod
 
       
